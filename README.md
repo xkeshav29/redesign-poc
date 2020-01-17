@@ -31,7 +31,7 @@ Redesigning the intent handler module:
 
 ### Core Functions in this module
 ```
-#### 1. Utility Functions
+1. Utility Functions
    a. startUnit: creates  new conversation session start in db
    b. getFirstRefereeDetailTypeResponse: gets referrer from db
    c. getNextInstructions: gets the next set of instructions for given instruction 
