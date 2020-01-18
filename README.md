@@ -87,6 +87,6 @@ Each intent has specific handling logic
 ```
 ### Sequence Diagram
 
-![Sequence Diagram](https://raw.githubusercontent.com/xkeshav29/vahan-poc/master/Basic%20Sequence%20Diagram.png?token=AEMWR4ZKVDWNZC5UZUVDACS6EK4TA)
+![Sequence Diagram](https://raw.githubusercontent.com/xkeshav29/vahan-poc/master/Basic%20Sequence%20Diagram.png)
 
 
