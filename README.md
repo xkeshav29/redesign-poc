@@ -67,22 +67,24 @@ Redesigning the intent handler module:
    else
       repeat sendMessage(could not understand, repeatInstruction)
 ```
-
+```
 Since Utility functions are not part of the core business logic, they can be isolated from this module.
 Core business logic is invoked at receiveMessageFromUser once a message a received from the user.
-
+```
 ### Entities and Contracts
 
 #### Module
+```
 Each module consists of a series of instructions
 Each instruction corresponds to an intent
 Completion of a module triggers specific actions like sending email, sending id for verification etc
-
+```
 
 #### Intent
+```
 Intent is classified either via regex match or artha api
 Each intent has specific handling logic
-
+```
 ### Sequence Diagram
 
 ![Sequence Diagram](https://raw.githubusercontent.com/xkeshav29/vahan-poc/master/Basic%20Sequence%20Diagram.png?token=AEMWR4ZA63EKG6RWLKS5WJ26EKWS2)
