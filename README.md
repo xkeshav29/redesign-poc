@@ -5,7 +5,7 @@
 ### Why?
 ```
 The current intent handler logic is a set of functions in a huge file of about 2.7k lines.
-This voilates the single responsibility principle(SRP) of the [SOLID design principles](https://en.wikipedia.org/wiki/SOLID) which is critical to maintanability.
+This voilates the single responsibility principle(SRP) of the [SOLID design principles][SOLID wikipedia] which is critical to maintanability.
 This makes it difficult for developers to interpret, add, edit intent handlers without breaking anything else.
 
 The goal of this initiative is to make the intent handling code more maintainable in terms of:
@@ -14,9 +14,11 @@ The goal of this initiative is to make the intent handling code more maintainabl
    3. Testable: Each module is independently testable so that changes can be done with confidence.
 ```
 
+[SOLID wikipedia](https://en.wikipedia.org/wiki/SOLID)
+
 ### What?
 ```
-Redesigning the intent handler module:
+Redesigning the intent handler.
 ```
 
 ### How?
@@ -88,3 +90,7 @@ Each intent has specific handling logic
 ### Sequence Diagram
 
 ![Sequence Diagram](https://raw.githubusercontent.com/xkeshav29/vahan-poc/master/Basic%20Sequence%20Diagram.png?token=AEMWR4ZA63EKG6RWLKS5WJ26EKWS2)
+
+### Proposed UML Diagram
+
+
