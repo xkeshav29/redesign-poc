@@ -68,7 +68,7 @@ Redesigning the intent handler.
       repeat sendMessage(could not understand, repeatInstruction)
 ```
 ```
-Since Utility functions are not part of the core business logic, they can be isolated from this module.
+Since Utility functions are not part of the core business logic, they should be isolated from this module.
 Core business logic is invoked at receiveMessageFromUser once a message a received from the user.
 ```
 ### Entities and Contracts
@@ -88,7 +88,5 @@ Each intent has specific handling logic
 ### Sequence Diagram
 
 ![Sequence Diagram](https://raw.githubusercontent.com/xkeshav29/vahan-poc/master/Basic%20Sequence%20Diagram.png?token=AEMWR4ZA63EKG6RWLKS5WJ26EKWS2)
-
-### Proposed UML Diagram
 
 
