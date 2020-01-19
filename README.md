@@ -88,16 +88,19 @@ Each intent has specific handling logic
 
 ![Sequence Diagram](https://raw.githubusercontent.com/xkeshav29/vahan-poc/master/Basic%20Sequence%20Diagram.png)
 
-### Design
+### Proposed Design
 
-Based on the principle of Single Responsibility principle and Dependency Injection from [SOLID](https://en.wikipedia.org/wiki/SOLID)
+Proposed design is based on the principle of Single Responsibility principle(SRP) and Dependency Injection(DI) from [SOLID](https://en.wikipedia.org/wiki/SOLID)
 
+Langugage of choice: Java
+Reason: Object oriented constructs is a must in order to implement SRP and DI
+TypeScript can be used if we want to stick to Nodejs
 
-Entities(Model classes):
+#### Entities(Model classes):
 
-1. Instruction
-2. State
-3. User
+1. Instruction[src/model/Instruction.java]: Encapsulates an instruction
+2. State[src/model/State.java]: Encapsulates the current state of a user
+3. User[src/model/User.java]: Encapsulates the user
 
 Entities with Types:
 
@@ -108,7 +111,7 @@ Entities with Types:
 
 
 
-Services:
+#### Services:
 
 |  Service         | Responsibility       |
 | ---------------  |-------------|
@@ -121,6 +124,7 @@ Services:
 
 
 The entry point service is (ChatService)[src/service/ChatService.java]:
+It depends on ModuleService, StateService and IntentService.
 
 It processes the message sent by a user and returns next instruction.
 Self explanatory code below:
@@ -173,3 +177,31 @@ class ChatService {
 
 }
 ```
+
+#### Primary Benefit of this design
+
+Each service performs operations specific to its entity and can be tested independently.
+
+Eg:
+1. ChatService should have 5 tests:
+  1. testChatServiceWhenValidResponse
+  2. testChatServiceWhenInvalidResponseAndValidIntent
+  3. testChatServiceWhenInvalidResponseAndInvalidIntent
+  4. testChatServiceWhenModuleComplete
+  5. testWhenErrorProcessingMessage
+  
+With these tests in place, it becomes easy for developers to change the business logic without the fear of breaking something.
+
+2. Each Intent encapsulates its logic of fulfilment
+
+Eg: LanguageChangeIntent [src/model/LanguageChangeIntent.java] contains logic to change language
+Changes to this intent fulfilment will not affect other intents.
+
+3. Each module encapsulates the logic to complete
+
+Eg: IdVerificationModule [src/model/IdVerificationModule.java] contains logic to send the id to 3rd party on completion.
+Changes to this module completion will not affect other modules.
+
+
+
+
