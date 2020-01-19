@@ -196,11 +196,14 @@ With these tests in place, it becomes easy for developers to change the business
 2. Each Intent encapsulates its logic of fulfilment
 
 Eg: [LanguageChangeIntent](src/model/LanguageChangeIntent.java) contains logic to change language
+```
 If tests for all intents are in place, changes to any intent fulfilment will not affect other intents.
-
+```
 3. Each module encapsulates the logic to complete
 
 Eg: [IdVerificationModule](src/model/IdVerificationModule.java) contains logic to send the id to 3rd party on completion.
+```
 If tests for all modeules are in place, changes to any module completion will not affect other modules.
+```
 
 
