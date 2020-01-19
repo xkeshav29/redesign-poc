@@ -1,7 +1,9 @@
 @Service
 class ModuleService {
 
-	private Map<String, Module> modules;
+	private Map<String, ModuleHandler> moduleHandlers;
+
+  List<String> modules;
 
   @Inject
   ModuleService(AppConfig appConfig) {
@@ -13,6 +15,6 @@ class ModuleService {
   }
 
 	public String nextModuleId(String currentModuleId) {
-    //get next module
+    //get next module form this.modules
 	}
 }

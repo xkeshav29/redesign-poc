@@ -1,4 +1,4 @@
-interface Module {
+interface ModuleHandler {
 	String getFirstInstructionId();
 
 	String getNextInstructionId(String currentInstructionId);

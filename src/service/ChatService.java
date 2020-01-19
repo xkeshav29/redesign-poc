@@ -24,14 +24,16 @@ class ChatService {
     State state = stateService.getState(userId);
     String currentModuleId = state.getCurrentModuleId();
     String currentInstructionId = state.getCurrentInstructionId();
-    Instruction currentInstruction = instructionService.get(currentInstructionId);
-    if(currentInstruction.isMatch(message)){
-      currentInstruction.fulfil(message);
+    Instruction currentInstructionHandler = instructionService.get(currentInstructionId).handler();
+    if(currentInstructionHandler.isMatch(message)){
+      currentInstructionHandler.fulfil(message);
       String nextModuleId = module.getNextInstruction(currentInstructionId)
                       .map(nextInstruction -> currentModuleId)
-                      .orElse(moduleService.nextModule(currentModuleId));
+                      .orElseGet(moduleService.nextModule(currentModuleId));
+      if(!nextModuleId.equals(currentModuleId))
+          moduleService.getModule(currentModule).handler().onComplete(user);
       String nextInstructionId = module.getNextInstruction(currentInstructionId)
-                      .orElse(newModule.getFirstInstructionId());
+                      .orElse(moduleService.getModule(newModule).handler().getFirstInstructionId());
       state.setInstructionId(nextInstructionId);
       state.setModuleId(nextModuleId);
       stateService.setState(userId, newState); 

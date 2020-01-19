@@ -1,7 +1,5 @@
-class LanguageChangeIntent implements Intent {
+class LanguageChangeIntentHandler implements IntentHandler {
   
-  String name;
-
   @Override
   public void fulfil(User user) {
     //change user language in db

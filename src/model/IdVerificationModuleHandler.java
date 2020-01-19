@@ -1,8 +1,6 @@
-class IdVerificationModule implements Module {
+class IdVerificationModuleHandler implements ModuleHandler {
 
-	String id;
-	List<String> instructions;
-	List<String> instructionIds;
+	List<Instruction> instructions;
 
 	@Override
 	public String getFirstInstructionId() {
