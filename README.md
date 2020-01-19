@@ -181,9 +181,9 @@ class ChatService {
 #### Benefits of this design
 
 ##### Each service performs operations specific to one entity and can be tested independently.
+1. Each service has tests specific to its functionality
 
-Eg:
-1. [ChatService](src/service/ChatService.java) should have 5 tests:
+Eg: [ChatService](src/service/ChatService.java) should have 5 tests:
 ```
   a. testChatServiceWhenValidResponse
   b. testChatServiceWhenInvalidResponseAndValidIntent
@@ -201,7 +201,7 @@ If tests for all intents are in place, changes to any intent fulfilment will not
 ```
 3. Each module encapsulates the logic to complete
 
-Eg: [IdVerificationModule](src/model/IdVerificationModule.java) contains logic to send the id to 3rd party on completion.
+Eg : [IdVerificationModule](src/model/IdVerificationModule.java) contains logic to send the id to 3rd party on completion.
 ```
 If tests for all modeules are in place, changes to any module completion will not affect other modules.
 ```
