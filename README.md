@@ -183,12 +183,12 @@ class ChatService {
 Each service performs operations specific to its entity and can be tested independently.
 
 Eg:
-1. ChatService should have 5 tests:
-  1. testChatServiceWhenValidResponse
-  2. testChatServiceWhenInvalidResponseAndValidIntent
-  3. testChatServiceWhenInvalidResponseAndInvalidIntent
-  4. testChatServiceWhenModuleComplete
-  5. testWhenErrorProcessingMessage
+1.ChatService should have 5 tests:
+  a. testChatServiceWhenValidResponse
+  b. testChatServiceWhenInvalidResponseAndValidIntent
+  c. testChatServiceWhenInvalidResponseAndInvalidIntent
+  d. testChatServiceWhenModuleComplete
+  e. testWhenErrorProcessingMessage
   
 With these tests in place, it becomes easy for developers to change the business logic without the fear of breaking something.
 
