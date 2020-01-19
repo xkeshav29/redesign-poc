@@ -120,7 +120,7 @@ Services:
 
 
 
-The entry point service is (ChatService)[src/service/ChatService]:
+The entry point service is (ChatService)[src/service/ChatService.java]:
 
 It processes the message sent by a user and returns next instruction.
 Self explanatory code below:
