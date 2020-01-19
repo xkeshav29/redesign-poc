@@ -183,23 +183,24 @@ class ChatService {
 Each service performs operations specific to its entity and can be tested independently.
 
 Eg:
-1.ChatService should have 5 tests:
+1. (ChatService)[src/service/ChatService.java] should have 5 tests:
+```
   a. testChatServiceWhenValidResponse
   b. testChatServiceWhenInvalidResponseAndValidIntent
   c. testChatServiceWhenInvalidResponseAndInvalidIntent
   d. testChatServiceWhenModuleComplete
   e. testWhenErrorProcessingMessage
-  
+```  
 With these tests in place, it becomes easy for developers to change the business logic without the fear of breaking something.
 
 2. Each Intent encapsulates its logic of fulfilment
 
-Eg: LanguageChangeIntent [src/model/LanguageChangeIntent.java] contains logic to change language
+Eg: (LanguageChangeIntent)[src/model/LanguageChangeIntent.java] contains logic to change language
 Changes to this intent fulfilment will not affect other intents.
 
 3. Each module encapsulates the logic to complete
 
-Eg: IdVerificationModule [src/model/IdVerificationModule.java] contains logic to send the id to 3rd party on completion.
+Eg: (IdVerificationModule)[src/model/IdVerificationModule.java] contains logic to send the id to 3rd party on completion.
 Changes to this module completion will not affect other modules.
 
 
