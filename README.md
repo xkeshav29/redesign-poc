@@ -88,5 +88,88 @@ Each intent has specific handling logic
 
 ![Sequence Diagram](https://raw.githubusercontent.com/xkeshav29/vahan-poc/master/Basic%20Sequence%20Diagram.png)
 
+### Design
 
-@[java](src/service/ChatService.java)
+Based on the principle of Single Responsibility principle and Dependency Injection from [SOLID](https://en.wikipedia.org/wiki/SOLID)
+
+
+Entities(Model classes):
+
+1. Instruction
+2. State
+3. User
+
+Entities with Types:
+
+|  Entity         | Types       |
+| --------------- |-------------|
+| Intent          | LanguageChangeIntent, UnsubscribeIntent etc |
+| Module          |  IdVerificationModule, JobRecommendationModule etc |
+
+
+
+Services:
+
+|  Service         | Responsibility       |
+| ---------------  |-------------|
+| ChatService        | Process user response and return next instruction |
+| ModuleService      |  Module related operations(getNext, getModule)    |
+| IntentService      |  Intent related operations(getIntent from artha)  |
+| InstructionService |  Instruction related operations(getInstruction)  |
+| StateService       |  State related operations(getState,setState from Db)  |
+
+
+
+The entry point service is (ChatService)[src/service/ChatService]:
+
+It processes the message sent by a user and returns next instruction.
+Self explanatory code below:
+
+```java
+@Service
+class ChatService {
+
+  private ModuleService moduleService;
+  private StateService stateService;
+  private IntentService intentService;
+
+  @Inject
+  ChatService(ModuleService moduleService, StateService stateService, IntentService intentService) {
+    this.moduleService = moduleService;
+    this.stateService = stateService;
+    this.intentService = intentService;
+  }
+
+  /*
+   * @param message: Message sent by the user
+   * @param userId: Id of the user
+   *
+   * Process the message sent by the user and return the next instruction
+   *
+   * @return instructionid of the next instruction
+  */
+  public String processUserResponse(String message, String userId) {
+    State state = stateService.getState(userId);
+    String currentModuleId = state.getCurrentModuleId();
+    String currentInstructionId = state.getCurrentInstructionId();
+    Instruction currentInstruction = instructionService.get(currentInstructionId);
+    if(currentInstruction.isMatch(message)){
+      currentInstruction.fulfil(message);
+      String nextModuleId = module.getNextInstruction(currentInstructionId)
+                      .map(nextInstruction -> currentModuleId)
+                      .orElse(moduleService.nextModule(currentModuleId));
+      String nextInstructionId = module.getNextInstruction(currentInstructionId)
+                      .orElse(newModule.getFirstInstructionId());
+      state.setInstructionId(nextInstructionId);
+      state.setModuleId(nextModuleId);
+      stateService.setState(userId, newState); 
+      return nextInstructionId;
+    } else
+      return intentService.getIntent(message)
+              .map(intent -> intent.fulfil(userId))
+              .orElse(DEFAULT_INSTRUCTION_ID);
+    } 
+  }
+
+}
+```
