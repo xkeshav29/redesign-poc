@@ -106,8 +106,8 @@ Entities with Types:
 
 |  Entity         | Types       |
 | --------------- |-------------|
-| Intent          | LanguageChangeIntent, UnsubscribeIntent etc |
-| Module          |  IdVerificationModule, JobRecommendationModule etc |
+| IntentHandler    | LanguageChangeIntentHandler, UnsubscribeIntentHandler etc |
+| ModuleHandler    |  IdVerificationModuleHandler, JobRecommendationModuleHandler etc |
 
 #### Services:
 
