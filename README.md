@@ -1,4 +1,3 @@
-# vahan-poc
 
 ## Background
 
