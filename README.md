@@ -98,9 +98,9 @@ TypeScript can be used if we want to stick to Nodejs
 ```
 #### Entities(Model classes):
 
-1. Instruction[src/model/Instruction.java]: Encapsulates an instruction
-2. State[src/model/State.java]: Encapsulates the current state of a user
-3. User[src/model/User.java]: Encapsulates the user
+1. [Instruction](src/model/Instruction.java): Encapsulates an instruction
+2. [State](src/model/State.java): Encapsulates the current state of a user
+3. [User](src/model/User.java): Encapsulates the user
 
 ```
 Entities with Types:
@@ -156,14 +156,16 @@ class ChatService {
     State state = stateService.getState(userId);
     String currentModuleId = state.getCurrentModuleId();
     String currentInstructionId = state.getCurrentInstructionId();
-    Instruction currentInstruction = instructionService.get(currentInstructionId);
-    if(currentInstruction.isMatch(message)){
-      currentInstruction.fulfil(message);
+    Instruction currentInstructionHandler = instructionService.get(currentInstructionId).handler();
+    if(currentInstructionHandler.isMatch(message)){
+      currentInstructionHandler.fulfil(message);
       String nextModuleId = module.getNextInstruction(currentInstructionId)
                       .map(nextInstruction -> currentModuleId)
-                      .orElse(moduleService.nextModule(currentModuleId));
+                      .orElseGet(moduleService.nextModule(currentModuleId));
+      if(!nextModuleId.equals(currentModuleId))
+          moduleService.getModule(currentModule).handler().onComplete(user);
       String nextInstructionId = module.getNextInstruction(currentInstructionId)
-                      .orElse(newModule.getFirstInstructionId());
+                      .orElse(moduleService.getModule(newModule).handler().getFirstInstructionId());
       state.setInstructionId(nextInstructionId);
       state.setModuleId(nextModuleId);
       stateService.setState(userId, newState); 
@@ -195,26 +197,26 @@ With these tests in place, it becomes easy for developers to change the business
 
 2. Each Intent encapsulates its logic of fulfilment
 
-Eg: [LanguageChangeIntent](src/model/LanguageChangeIntent.java) contains logic to change language
+Eg: [LanguageChangeIntentHandler](src/model/LanguageChangeIntentHandler.java) contains logic to change language
 ```
-If tests for all intents are in place, changes to any intent fulfilment will not affect other intents.
+If tests for all intent handlers are in place, changes to any intent fulfilment logic will not affect other intents.
 ```
 3. Each module encapsulates the logic to complete
 
-Eg : [IdVerificationModule](src/model/IdVerificationModule.java) contains logic to send the id to 3rd party on completion.
+Eg : [IdVerificationModuleHandler](src/model/IdVerificationModuleHandler.java) contains logic to send the id to 3rd party on completion.
 ```
-If tests for all modeules are in place, changes to any module completion will not affect other modules.
+If tests for all module handlers are in place, changes to any module logic will not affect other modules.
 ```
 
 ##### It is easy to extend add new intents, modules
 ```
-Adding a new module takes no more effort than implementing Module interface with two methods as per the contract.
-Similary, adding a new intent takes no more effort than implementing Intent interface with two methods as per the contract.
+Adding a new module takes no more effort than providing an implementation of ModuleHandler interface as per contract.
+Similary, adding a new intent takes no more effort than implementing IntentHandler interface as per contract.
 ```
 Eg: Adding a Request Support call intent.
 
 ```java
-class SupportCallIntent implements Intent {
+class SupportCallIntentHandler implements IntentHandler {
 
    @Override
    void fulfil(User user) {
@@ -231,7 +233,7 @@ class SupportCallIntent implements Intent {
 ```
 Eg: Adding an Ask Feedback Module.
 ```java
-class AskFeedbackModule implements Module {
+class AskFeedbackModuleHandler implements ModuleHandler {
    List<Instruction> instructions;
 
    @Override
