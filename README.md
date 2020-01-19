@@ -124,7 +124,7 @@ Entities with Types:
 ```
 
 The entry point service is [ChatService](src/service/ChatService.java):
-It depends on ModuleService, StateService and IntentService.
+It depends on [ModuleService](src/service/ChatService.java), [StateService](src/service/ChatService.java) and [IntentService](src/service/ChatService.java).
 
 It processes the message sent by a user and returns next instruction.
 Self explanatory code:
@@ -178,9 +178,9 @@ class ChatService {
 }
 ```
 
-#### Primary Benefit of this design
+#### Benefits of this design
 
-Each service performs operations specific to its entity and can be tested independently.
+##### Each service performs operations specific to one entity and can be tested independently.
 
 Eg:
 1. [ChatService](src/service/ChatService.java) should have 5 tests:
@@ -205,5 +205,54 @@ Eg: [IdVerificationModule](src/model/IdVerificationModule.java) contains logic t
 ```
 If tests for all modeules are in place, changes to any module completion will not affect other modules.
 ```
+
+##### It is easy to extend add new intents, modules
+```
+Adding a new module takes no more effort than implementing Module interface with two methods as per the contract.
+Similary, adding a new intent takes no more effort than implementing Intent interface with two methods as per the contract.
+```
+Eg: Adding a Request Support call intent.
+
+```java
+class SupportCallIntent implements Intent {
+
+   @Override
+   void fulfil(User user) {
+       supportService.requestSupportCallback();
+   }
+
+   @Override
+   boolean isMatch(String message) {
+      return Pattern.match(message, "regex");
+   }
+
+}
+
+```
+Eg: Adding an Ask Feedback Module.
+```java
+class AskFeedbackModule implements Module {
+   List<Instruction> instructions;
+
+   @Override
+   String firstInstructionId(){
+      return FIRST_INSTRUCTION_ID;
+   }
+
+   @Override
+   String getNextInstructionId(String currentInstructionId) {
+      //return next instruction id from the list
+   }
+   
+   @Override
+   void onComplete(User user) {
+      //send the collected feedback to analytics service
+   }
+}
+```
+
+
+
+
 
 
