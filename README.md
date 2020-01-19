@@ -98,10 +98,10 @@ TypeScript can be used if we want to stick to Nodejs
 
 #### Entities(Model classes):
 
-```
 1. Instruction[src/model/Instruction.java]: Encapsulates an instruction
 2. State[src/model/State.java]: Encapsulates the current state of a user
 3. User[src/model/User.java]: Encapsulates the user
+
 ```
 Entities with Types:
 
@@ -109,7 +109,7 @@ Entities with Types:
 | --------------- |-------------|
 | Intent          | LanguageChangeIntent, UnsubscribeIntent etc |
 | Module          |  IdVerificationModule, JobRecommendationModule etc |
-
+```
 
 #### Services:
 ```
@@ -202,7 +202,5 @@ Changes to this intent fulfilment will not affect other intents.
 
 Eg: [IdVerificationModule](src/model/IdVerificationModule.java) contains logic to send the id to 3rd party on completion.
 Changes to this module completion will not affect other modules.
-
-
 
 
