@@ -218,7 +218,7 @@ class SupportCallIntent implements Intent {
 
    @Override
    void fulfil(User user) {
-       supportService.requestSupportCallback();
+       supportService.requestSupportCallback(user);
    }
 
    @Override
