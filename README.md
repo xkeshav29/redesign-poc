@@ -102,17 +102,14 @@ TypeScript can be used if we want to stick to Nodejs
 2. [State](src/model/State.java): Encapsulates the current state of a user
 3. [User](src/model/User.java): Encapsulates the user
 
-```
 Entities with Types:
 
 |  Entity         | Types       |
 | --------------- |-------------|
 | Intent          | LanguageChangeIntent, UnsubscribeIntent etc |
 | Module          |  IdVerificationModule, JobRecommendationModule etc |
-```
 
 #### Services:
-```
 
 |  Service         | Responsibility       |
 | ---------------  |-------------|
@@ -121,7 +118,6 @@ Entities with Types:
 | IntentService      |  Intent related operations(getIntent from artha)  |
 | InstructionService |  Instruction related operations(getInstruction)  |
 | StateService       |  State related operations(getState,setState from Db)  |
-```
 
 The entry point service is [ChatService](src/service/ChatService.java):
 It depends on [ModuleService](src/service/ChatService.java), [StateService](src/service/ChatService.java) and [IntentService](src/service/ChatService.java).
