@@ -2,11 +2,11 @@
 ## Background
 
 ### Why?
-```
-The current intent handler logic is a set of functions in a huge file of about 2.7k lines.
-This voilates the single responsibility principle(SRP) of the (SOLID)[https://en.wikipedia.org/wiki/SOLID] which is critical to maintanability.
-This makes it difficult for developers to interpret, add, edit intent handlers without breaking anything else.
 
+The current intent handler logic is a set of functions in a huge file of about 2.7k lines.
+This voilates the single responsibility principle(SRP) of the [SOLID](https://en.wikipedia.org/wiki/SOLID) which is critical to maintanability. This makes it difficult for developers to interpret, add, edit intent handlers without breaking anything else.
+
+```
 The goal of this initiative is to make the intent handling code more maintainable in terms of:
    1. Readability: It is easy to interpret the flow.
    2. Extensible: It is easy to add/edit an existing intent without any side-effects in others.
