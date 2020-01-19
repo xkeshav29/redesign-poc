@@ -90,7 +90,7 @@ Each intent has specific handling logic
 
 ### Proposed Design
 
-Proposed design is based on the principle of Single Responsibility principle(SRP) and Dependency Injection(DI) from [SOLID](https://en.wikipedia.org/wiki/SOLID)
+Proposed design is based on the principle of Single Responsibility principle(SRP) and Dependency Injection(DI) from [SOLID](https://en.wikipedia.org/wiki/SOLID) design principles
 
 Langugage of choice: Java
 Reason: Object oriented constructs is a must in order to implement SRP and DI
@@ -98,10 +98,11 @@ TypeScript can be used if we want to stick to Nodejs
 
 #### Entities(Model classes):
 
+```
 1. Instruction[src/model/Instruction.java]: Encapsulates an instruction
 2. State[src/model/State.java]: Encapsulates the current state of a user
 3. User[src/model/User.java]: Encapsulates the user
-
+```
 Entities with Types:
 
 |  Entity         | Types       |
@@ -110,8 +111,8 @@ Entities with Types:
 | Module          |  IdVerificationModule, JobRecommendationModule etc |
 
 
-
 #### Services:
+```
 
 |  Service         | Responsibility       |
 | ---------------  |-------------|
@@ -120,14 +121,13 @@ Entities with Types:
 | IntentService      |  Intent related operations(getIntent from artha)  |
 | InstructionService |  Instruction related operations(getInstruction)  |
 | StateService       |  State related operations(getState,setState from Db)  |
+```
 
-
-
-The entry point service is (ChatService)[src/service/ChatService.java]:
+The entry point service is [ChatService](src/service/ChatService.java):
 It depends on ModuleService, StateService and IntentService.
 
 It processes the message sent by a user and returns next instruction.
-Self explanatory code below:
+Self explanatory code:
 
 ```java
 @Service
@@ -183,7 +183,7 @@ class ChatService {
 Each service performs operations specific to its entity and can be tested independently.
 
 Eg:
-1. (ChatService)[src/service/ChatService.java] should have 5 tests:
+1. [ChatService](src/service/ChatService.java) should have 5 tests:
 ```
   a. testChatServiceWhenValidResponse
   b. testChatServiceWhenInvalidResponseAndValidIntent
@@ -195,12 +195,12 @@ With these tests in place, it becomes easy for developers to change the business
 
 2. Each Intent encapsulates its logic of fulfilment
 
-Eg: (LanguageChangeIntent)[src/model/LanguageChangeIntent.java] contains logic to change language
+Eg: [LanguageChangeIntent](src/model/LanguageChangeIntent.java) contains logic to change language
 Changes to this intent fulfilment will not affect other intents.
 
 3. Each module encapsulates the logic to complete
 
-Eg: (IdVerificationModule)[src/model/IdVerificationModule.java] contains logic to send the id to 3rd party on completion.
+Eg: [IdVerificationModule](src/model/IdVerificationModule.java) contains logic to send the id to 3rd party on completion.
 Changes to this module completion will not affect other modules.
 
 
