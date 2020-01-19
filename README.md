@@ -91,11 +91,11 @@ Each intent has specific handling logic
 ### Proposed Design
 
 Proposed design is based on the principle of Single Responsibility principle(SRP) and Dependency Injection(DI) from [SOLID](https://en.wikipedia.org/wiki/SOLID) design principles
-
+```
 Langugage of choice: Java
 Reason: Object oriented constructs is a must in order to implement SRP and DI
 TypeScript can be used if we want to stick to Nodejs
-
+```
 #### Entities(Model classes):
 
 1. Instruction[src/model/Instruction.java]: Encapsulates an instruction
